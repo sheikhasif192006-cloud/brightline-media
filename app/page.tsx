@@ -1,5 +1,10 @@
 import Navbar from '@/src/components/Navbar';
 import { BackgroundEffect } from '@/src/components/BackgroundEffect';
+import { ParticleField } from '@/src/components/ParticleField';
+import { ClientBar } from '@/src/components/ClientBar';
+import { StatDivider } from '@/src/components/StatDivider';
+import { ComparisonChart } from '@/src/components/ComparisonChart';
+import { AmbientGlow } from '@/src/components/AmbientGlow';
 import HeroSection from '@/src/sections/HeroSection';
 import ServicesSection from '@/src/sections/ServicesSection';
 import FeaturesSection from '@/src/sections/FeaturesSection';
@@ -16,6 +21,12 @@ export default function Home() {
       {/* Immersive Dark Futuristic Background Engine */}
       <BackgroundEffect />
 
+      <div className="fixed inset-0 z-[1] opacity-50 pointer-events-none">
+        <ParticleField />
+      </div>
+
+      <AmbientGlow />
+
       {/* Structured Site Modules */}
       <Navbar />
       
@@ -23,9 +34,12 @@ export default function Home() {
         <HeroSection />
         <ServicesSection />
         <FeaturesSection />
+        <ComparisonChart />
+        <ClientBar />
         <PortfolioSection />
         <ProcessSection />
         <TestimonialsSection />
+        <StatDivider />
         <FAQSection />
         <ContactSection />
       </div>

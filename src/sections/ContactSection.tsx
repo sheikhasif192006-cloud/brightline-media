@@ -37,13 +37,13 @@ export const ContactSection = () => {
 
           <Reveal direction="up" distance={20} delay={0.3} duration={0.6}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="orange" size="lg" href="https://wa.me/917415411469" ariaLabel="Book a discovery call">
+              <Button variant="orange" size="lg" href="https://wa.me/917415411469" className="w-full sm:w-auto" ariaLabel="Book a discovery call">
                 Book A Discovery Call
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </Button>
-              <Button variant="cyber" size="lg" href="#services" ariaLabel="View our services">
+              <Button variant="cyber" size="lg" href="#services" className="w-full sm:w-auto" ariaLabel="View our services">
                 Our Services
               </Button>
             </div>

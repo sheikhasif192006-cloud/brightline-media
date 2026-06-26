@@ -9,6 +9,7 @@ interface CardProps {
   hoverEffect?: boolean;
   footer?: React.ReactNode;
   headerAccent?: React.ReactNode;
+  onClick?: () => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -20,6 +21,7 @@ export const Card: React.FC<CardProps> = ({
   hoverEffect = true,
   footer,
   headerAccent,
+  onClick,
 }) => {
   const glowStyles = {
     orange: 'hover:border-cyber-orange/30 hover:shadow-[0_0_20px_rgba(255,106,1,0.1),0_0_60px_rgba(255,106,1,0.06)]',
@@ -31,9 +33,14 @@ export const Card: React.FC<CardProps> = ({
 
   return (
     <div 
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(); } } : undefined}
       className={`
         glass-panel rounded-lg overflow-hidden border border-white/5 flex flex-col relative group will-change-transform
         ${hoverEffect ? 'hover:-translate-y-1' : ''}
+        ${onClick ? 'cursor-pointer' : ''}
         ${glowColor !== 'none' ? glowStyles[glowColor] : ''}
         ${className}
       `.trim()}

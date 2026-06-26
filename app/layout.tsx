@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { CustomCursor } from "@/src/components/CustomCursor";
 import { ScrollProgress } from "@/src/components/ScrollProgress";
+import { SmoothScroll } from "@/src/components/SmoothScroll";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="bg-black text-foreground min-h-screen selection:bg-cyber-orange/30 selection:text-cyber-orange noise-overlay cursor-none md:cursor-none">
+        <SmoothScroll />
         <ScrollProgress />
         <CustomCursor />
         {children}

@@ -275,7 +275,18 @@ body {
 }
 
 .text-glow-orange {
-  text-shadow: 0 0 10px rgba(255, 106, 1, 0.5), 0 0 20px rgba(255, 106, 1, 0.2);
+  text-shadow: 0 0 20px rgba(255, 106, 1, 0.6), 0 0 40px rgba(255, 106, 1, 0.3), 0 0 80px rgba(255, 106, 1, 0.15);
+  animation: textGlowPulse 3s ease-in-out infinite;
+}
+
+.text-glow-orange-strong {
+  text-shadow: 0 0 30px rgba(255, 106, 1, 0.8), 0 0 60px rgba(255, 106, 1, 0.4), 0 0 100px rgba(255, 106, 1, 0.2);
+  animation: textGlowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes textGlowPulse {
+  0%, 100% { text-shadow: 0 0 20px rgba(255, 106, 1, 0.6), 0 0 40px rgba(255, 106, 1, 0.3), 0 0 80px rgba(255, 106, 1, 0.15); }
+  50% { text-shadow: 0 0 40px rgba(255, 106, 1, 0.9), 0 0 80px rgba(255, 106, 1, 0.5), 0 0 120px rgba(255, 106, 1, 0.3); }
 }
 
 .text-glow-amber {

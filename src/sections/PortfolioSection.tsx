@@ -6,9 +6,23 @@ import { SectionHeader } from '../components/SectionHeader';
 import { Button } from '../components/Button';
 import { Reveal } from '../components/Reveal';
 import { StaggerContainer, StaggerItem } from '../components/Stagger';
+import { PortfolioModal } from '../components/PortfolioModal';
+
+interface ProjectData {
+  category: string;
+  title: string;
+  description: string;
+  stats: { label: string; value: string }[];
+  strategy: string;
+  approach: string[];
+  results: { label: string; value: string }[];
+  testimonial: { quote: string; author: string; role: string };
+  service: string;
+}
 
 export const PortfolioSection = () => {
   const [filter, setFilter] = useState('ALL');
+  const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
   const categories = ['ALL', 'YOUTUBE', 'REELS', 'ADS'];
 
@@ -21,6 +35,31 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_01Y',
+      modal: {
+        category: 'YOUTUBE',
+        title: 'YOUTUBE GROWTH ENGINE',
+        description: 'Full content system for a finance creator. Grew subscribers from 12K to 85K in 4 months with retention-optimized edits.',
+        stats: [{ label: 'Subscribers', value: '12K→85K' }, { label: 'Timeline', value: '4 Months' }],
+        strategy: 'We developed a comprehensive content strategy focusing on retention-optimized editing, thumbnail design, and algorithmic pacing. Each video was structured to maximize AVD (Average View Duration) and drive subscriber growth through strategic CTAs and series formatting.',
+        approach: [
+          'Analyzed top-performing finance channels to identify content patterns',
+          'Restructured video pacing for 70%+ retention rate',
+          'Implemented custom motion graphics package for brand consistency',
+          'Optimized upload schedule based on audience analytics',
+        ],
+        results: [
+          { label: 'Subscriber Growth', value: '73K+' },
+          { label: 'Avg. Retention', value: '72%' },
+          { label: 'Monthly Views', value: '2.5M+' },
+          { label: 'Revenue Impact', value: '4x' },
+        ],
+        testimonial: {
+          quote: 'Brightline transformed my channel. The retention editing alone doubled my watch time. Best investment I have made for my brand.',
+          author: 'Alex Rivera',
+          role: 'Finance Creator — 85K Subscribers',
+        },
+        service: 'YouTube Growth System',
+      },
     },
     {
       title: 'PODCAST TO REELS',
@@ -30,6 +69,31 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_02P',
+      modal: {
+        category: 'REELS',
+        title: 'PODCAST TO REELS',
+        description: 'Turned a 60-min podcast into 15 viral-ready short clips. 2M+ combined views across Instagram and TikTok within 2 weeks.',
+        stats: [{ label: 'Views', value: '2M+' }, { label: 'Timeline', value: '2 Weeks' }],
+        strategy: 'We identified the highest-impact moments from each episode and transformed them into platform-native short-form content optimized for viral distribution. Each clip was crafted with captions, hook optimization, and trend-aware formatting.',
+        approach: [
+          'Flagged 15+ clipable moments per 60-min episode',
+          'Optimized first 3 seconds for scroll-stopping hooks',
+          'Added platform-specific captions and text overlays',
+          'Posted on optimal timing based on audience analytics',
+        ],
+        results: [
+          { label: 'Total Views', value: '2M+' },
+          { label: 'Engagement Rate', value: '8.5%' },
+          { label: 'New Followers', value: '15K+' },
+          { label: 'Clips Produced', value: '15/Week' },
+        ],
+        testimonial: {
+          quote: 'They turned my long podcast into a content machine. The clip repurposing strategy brought in more followers in 2 weeks than I got in 6 months.',
+          author: 'Maya Chen',
+          role: 'Podcast Host — 200K+ Downloads',
+        },
+        service: 'Podcast Repurposing System',
+      },
     },
     {
       title: 'BRAND AD CAMPAIGN',
@@ -39,6 +103,31 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_03B',
+      modal: {
+        category: 'ADS',
+        title: 'BRAND AD CAMPAIGN',
+        description: 'High-converting ad suite for a D2C brand. 4.5x ROAS with scroll-stopping hooks and platform-native formatting.',
+        stats: [{ label: 'ROAS', value: '4.5x' }, { label: 'Platforms', value: '3' }],
+        strategy: 'We created a multi-platform ad suite combining short-form video ads for Facebook, YouTube, and Instagram. Each ad was tailored to platform-specific best practices while maintaining consistent brand messaging.',
+        approach: [
+          'Created 10+ ad variations for A/B testing',
+          'Optimized hook delivery within first 1.5 seconds',
+          'Platform-native formatting for Facebook, YouTube, Instagram',
+          'Iterative thumbstop score improvement cycle',
+        ],
+        results: [
+          { label: 'ROAS', value: '4.5x' },
+          { label: 'CTR', value: '3.2%' },
+          { label: 'Conversion Rate', value: '6.8%' },
+          { label: 'Ad Reach', value: '1.2M+' },
+        ],
+        testimonial: {
+          quote: 'The ad creative Brightline produced outperformed everything we had done in-house. 4.5x ROAS speaks for itself.',
+          author: 'James Park',
+          role: 'D2C Brand Founder',
+        },
+        service: 'Ad Creative Production',
+      },
     },
     {
       title: 'TIKTOK VIRAL CLIPS',
@@ -48,6 +137,31 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_04T',
+      modal: {
+        category: 'REELS',
+        title: 'TIKTOK VIRAL CLIPS',
+        description: 'Daily short-form content for a lifestyle creator. 500K+ followers gained in 3 months with trend-aware fast-paced edits.',
+        stats: [{ label: 'Followers', value: '500K+' }, { label: 'Timeline', value: '3 Months' }],
+        strategy: 'Daily content production with trend-aware editing. We monitored trending sounds, formats, and challenges daily to keep content fresh and algorithm-friendly.',
+        approach: [
+          'Daily trend monitoring and rapid content adaptation',
+          'Fast-paced editing with 1.5s average cut interval',
+          'Trending sound and effect integration',
+          'Optimized posting cadence for maximum reach',
+        ],
+        results: [
+          { label: 'New Followers', value: '500K+' },
+          { label: 'Total Views', value: '45M+' },
+          { label: 'Avg. Plays/Video', value: '85K' },
+          { label: 'Engagement Rate', value: '12%' },
+        ],
+        testimonial: {
+          quote: 'Brightline kept up with every trend and made sure my content never fell behind. 500K followers in 3 months is insane.',
+          author: 'Priya Sharma',
+          role: 'Lifestyle Creator — 850K Followers',
+        },
+        service: 'TikTok Growth System',
+      },
     },
   ];
 
@@ -110,7 +224,8 @@ export const PortfolioSection = () => {
                 title={project.title}
                 subtitle={`${project.category} // ${project.cyberNo}`}
                 glowColor={project.glowColor}
-                className="group"
+                className="group cursor-pointer"
+                onClick={() => setSelectedProject(project.modal)}
               >
                 <div className="flex flex-col gap-6">
                   <div
@@ -165,6 +280,8 @@ export const PortfolioSection = () => {
         )}
         </StaggerContainer>
       </div>
+
+      <PortfolioModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </section>
   );
 };

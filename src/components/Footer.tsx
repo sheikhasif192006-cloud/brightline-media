@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Reveal } from './Reveal';
 import { StaggerContainer, StaggerItem } from './Stagger';
 
@@ -11,12 +11,7 @@ export const Footer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const buildId = useMemo(() => {
-    const chars = '0123456789ABCDEF';
-    let id = 'BLD-';
-    for (let i = 0; i < 8; i++) id += chars[Math.floor(Math.random() * chars.length)];
-    return id;
-  }, []);
+  const buildId = 'BLD-4A2C9F81';
 
   useEffect(() => {
     if (!subscribed) return;
@@ -26,7 +21,7 @@ export const Footer = () => {
     return () => clearTimeout(timer);
   }, [subscribed]);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     setEmailError('');
 
@@ -45,12 +40,25 @@ export const Footer = () => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      const formData = new FormData();
+      formData.append('form-name', 'operations-logs');
+      formData.append('email', trimmed);
+
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
       setIsSubmitting(false);
       setSubscribed(true);
       setEmail('');
       setEmailError('');
-    }, 800);
+    } catch {
+      setIsSubmitting(false);
+      setEmailError('TRANSMISSION FAILED');
+    }
   };
 
   const currentYear = new Date().getFullYear();
@@ -116,7 +124,10 @@ export const Footer = () => {
                 onSubmit={handleSubscribe}
                 className="flex flex-col sm:flex-row gap-3 max-w-lg"
                 noValidate
+                data-netlify="true"
+                name="operations-logs"
               >
+                <input type="hidden" name="form-name" value="operations-logs" />
                 <div className="relative flex-grow">
                   <label htmlFor="footer-email" className="sr-only">
                     Email address for newsletter
@@ -125,6 +136,7 @@ export const Footer = () => {
                     ref={inputRef}
                     id="footer-email"
                     type="email"
+                    name="email"
                     value={email}
                     onChange={(e) => {
                       setEmail(e.target.value);

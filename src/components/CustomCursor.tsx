@@ -25,8 +25,6 @@ export const CustomCursor = () => {
     };
   }, [visible]);
 
-  if (typeof window === 'undefined') return null;
-
   return (
     <div
       className="pointer-events-none fixed z-[9999] transition-opacity duration-300"
@@ -38,7 +36,7 @@ export const CustomCursor = () => {
       }}
       aria-hidden="true"
     >
-      <div className="w-8 h-8 rounded-full bg-cyber-orange/10 border border-cyber-orange/30 shadow-[0_0_15px_rgba(255,106,1,0.3)] animate-ping-slow" />
+      <div className="w-10 h-10 rounded-full bg-cyber-orange/15 border border-cyber-orange/50 shadow-[0_0_25px_rgba(255,106,1,0.5),0_0_50px_rgba(255,106,1,0.2)] animate-ping-slow" />
     </div>
   );
 };

@@ -8,27 +8,18 @@
 | **aurelius-erp** | https://github.com/sheikhasif192006-cloud/aurelius-erp | Vite+React 19 (frontend) + Express+Prisma (backend) |
 | **hive-ai-pro** | https://github.com/sheikhasif192006-cloud/hive-ai-pro | Vite+React 19 + Three.js (frontend) + Express+Mongoose (backend) + Electron (desktop) |
 
----
-
 ## 🔧 Indore PC Setup (Naye PC pe kaise chalana hai)
 
 ### 1. Install karo:
-```bash
-# Node.js
+```
 winget install OpenJS.NodeJS.LTS
-
-# Git
 winget install Git.Git
-
-# GitHub CLI
 winget install GitHub.cli
-
-# VS Code
 winget install Microsoft.VisualStudioCode
 ```
 
 ### 2. Clone all repos:
-```bash
+```
 cd C:\Projects
 git clone https://github.com/sheikhasif192006-cloud/brightline-media.git
 git clone https://github.com/sheikhasif192006-cloud/axility-ai.git
@@ -37,53 +28,24 @@ git clone https://github.com/sheikhasif192006-cloud/hive-ai-pro.git
 ```
 
 ### 3. Har project ke liye:
-```bash
+```
 cd brightline-media
 npm install
 npm run dev        # local: http://localhost:3000
 npm run build      # production build
 ```
 
----
-
-## 🌐 Brightline Media — Quick Reference
-
-### Deploy to Netlify:
-```bash
+## 🌐 Brightline Media — Deploy
+```
 cd brightline-media
 npm run build
 netlify deploy --prod --dir=out
 ```
 
-### Login:
-```bash
-netlify login                    # Login
-netlify status                   # Check status
-```
-
-### Credentials:
+## 🔑 Login Credentials
 - Netlify: sheikh.asif.192006@gmail.com
 - GitHub Account: sheikhasif192006-cloud
 - Domain: brightlinemedia.com
-
-### Netlify Site ID: ada025b7-ec7c-4fe7-9d69-10bfc6c95498
-### Account ID: 6a03850ba225257319633958
-
----
-
-## 🎨 Site Features
-- Orange theme (#FF6A01) — video editing agency
-- Section headers with stagger animations (2s gap between elements)
-- Hero with showreel video placeholder (/videos/showreel.mp4)
-- 6 services, 6 features, 4 portfolio projects
-- Mobile responsive, hamburger drawer, custom cursor
-- WhatsApp contact: +919285500971 (User)
-- Partner (Asif Bhai): +917415411469
-
-### Pending (Videos dene baaki):
-1. /public/videos/showreel.mp4 — Hero showreel
-2. /public/videos/project-*.mp4 — Portfolio thumbnails
-
----
-
-
+- WhatsApp: +917415411469
+- Netlify Site ID: ada025b7-ec7c-4fe7-9d69-10bfc6c95498
+- Account ID: 6a03850ba225257319633958

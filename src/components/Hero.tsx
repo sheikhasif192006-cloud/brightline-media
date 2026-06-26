@@ -46,7 +46,7 @@ export const Hero = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 block mb-1">
                   We Turn Creators
                 </span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange via-cyber-warm to-cyber-amber text-glow-orange">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange via-cyber-warm to-cyber-amber text-glow-orange-strong">
                   Into Brands that SCALE
                 </span>
               </h1>
