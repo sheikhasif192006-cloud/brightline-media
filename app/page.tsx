@@ -8,6 +8,7 @@ import { AmbientGlow } from '@/src/components/AmbientGlow';
 import HeroSection from '@/src/sections/HeroSection';
 import ServicesSection from '@/src/sections/ServicesSection';
 import FeaturesSection from '@/src/sections/FeaturesSection';
+import ResultsSection from '@/src/sections/ResultsSection';
 import PortfolioSection from '@/src/sections/PortfolioSection';
 import ProcessSection from '@/src/sections/ProcessSection';
 import TestimonialsSection from '@/src/sections/TestimonialsSection';
@@ -36,6 +37,7 @@ export default function Home() {
         <FeaturesSection />
         <ComparisonChart />
         <ClientBar />
+        <ResultsSection />
         <PortfolioSection />
         <ProcessSection />
         <TestimonialsSection />

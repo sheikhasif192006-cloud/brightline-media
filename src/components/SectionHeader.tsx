@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useRef, useCallback } from 'react';
+import { motion, useInView, useMotionValue, useMotionTemplate } from 'framer-motion';
 
 interface SectionHeaderProps {
   number: string;
@@ -54,7 +54,24 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   className = '',
 }) => {
   const ref = useRef(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const spotlightX = useMotionValue(-300);
+  const spotlightY = useMotionValue(-300);
+  const spotlightMask = useMotionTemplate`radial-gradient(400px circle at ${spotlightX}px ${spotlightY}px, black 0%, transparent 35%)`;
+
+  const handleSpotlight = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const el = titleRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    spotlightX.set(e.clientX - rect.left);
+    spotlightY.set(e.clientY - rect.top);
+  }, []);
+
+  const handleSpotlightLeave = useCallback(() => {
+    spotlightX.set(-300);
+    spotlightY.set(-300);
+  }, []);
 
   const activeAlign = align || (alignment as 'left' | 'center');
 
@@ -78,7 +95,9 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       variants={stagger}
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
-      className={`flex flex-col mb-12 md:mb-16 max-w-3xl ${alignmentClasses[activeAlign]} ${className}`}
+      className={`flex flex-col mb-12 md:mb-16 max-w-3xl ${alignmentClasses[activeAlign]} ${className} relative select-none`}
+      onMouseMove={handleSpotlight}
+      onMouseLeave={handleSpotlightLeave}
     >
       <motion.div
         variants={fadeUp}
@@ -92,10 +111,20 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       </motion.div>
 
       <motion.h2
+        ref={titleRef}
         variants={fadeUp}
-        className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter text-white mb-3 sm:mb-4 uppercase"
+        className="text-2xl sm:text-3xl md:text-5xl font-black tracking-tighter text-white mb-3 sm:mb-4 uppercase relative"
       >
-        {title}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 via-slate-400 to-slate-500/60">
+          {title}
+        </span>
+        <motion.span
+          className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange via-cyber-warm to-cyber-amber"
+          style={{ WebkitMaskImage: spotlightMask, maskImage: spotlightMask }}
+          aria-hidden="true"
+        >
+          {title}
+        </motion.span>
       </motion.h2>
 
       <motion.div

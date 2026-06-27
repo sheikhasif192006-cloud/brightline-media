@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -15,6 +15,7 @@ interface ProjectData {
   results: { label: string; value: string }[];
   testimonial: { quote: string; author: string; role: string };
   service: string;
+  videoSrc?: string;
 }
 
 export const PortfolioModal = ({
@@ -42,6 +43,43 @@ export const PortfolioModal = ({
       window.removeEventListener('keydown', handleKey);
     };
   }, [project, onClose]);
+
+  const ModalVideo = ({ src }: { src: string }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [playing, setPlaying] = useState(false);
+
+    const handleEnter = useCallback(() => {
+      const vid = videoRef.current;
+      if (!vid) return;
+      vid.muted = false;
+      vid.currentTime = 0;
+      vid.play().then(() => setPlaying(true)).catch(() => {});
+    }, []);
+
+    const handleLeave = useCallback(() => {
+      const vid = videoRef.current;
+      if (!vid) return;
+      vid.pause();
+      setPlaying(false);
+    }, []);
+
+    return (
+      <div className="absolute inset-0" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+        <video ref={videoRef} className="w-full h-full object-contain" muted loop playsInline>
+          <source src={src} type="video/mp4" />
+        </video>
+        {!playing && (
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 backdrop-blur-md flex items-center justify-center group-hover:border-cyber-orange group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,106,1,0.5)] transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
+              <svg className="w-5 h-5 text-white ml-0.5 group-hover:text-cyber-orange transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <AnimatePresence>
@@ -99,15 +137,19 @@ export const PortfolioModal = ({
                 </div>
 
                 {/* Hero frame placeholder */}
-                <div className="aspect-video w-full rounded-lg bg-gradient-to-br from-cyber-orange/10 to-cyber-amber/5 border border-white/5 flex items-center justify-center overflow-hidden relative">
+                <div className="aspect-video w-full rounded-lg bg-gradient-to-br from-cyber-orange/10 to-cyber-amber/5 border border-white/5 flex items-center justify-center overflow-hidden relative group cursor-pointer">
                   <div className="absolute inset-0 cyber-grid opacity-20" />
-                  <div className="flex items-center gap-3 text-slate-500 font-mono text-xs">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    SHOWREEL PREVIEW
-                  </div>
+                  {project.videoSrc ? (
+                    <ModalVideo src={project.videoSrc} />
+                  ) : (
+                    <div className="flex items-center gap-3 text-slate-500 font-mono text-xs">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      SHOWREEL PREVIEW
+                    </div>
+                  )}
                 </div>
 
                 {/* Strategy */}

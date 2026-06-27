@@ -1,16 +1,26 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
+
+function Delayed({ children }: { children: React.ReactNode }) {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setShow(true), 300);
+    return () => clearTimeout(t);
+  }, []);
+  return show ? <>{children}</> : null;
+}
 
 function Particles() {
   const ref = useRef<THREE.Points>(null);
   const mouse = useRef({ x: 999, y: 999 });
   const { pointer } = useThree();
+  const frameSkip = useRef(0);
 
   const [positions, velocities] = useMemo(() => {
-    const count = 100;
+    const count = 80;
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -25,12 +35,14 @@ function Particles() {
   }, []);
 
   useFrame(() => {
+    frameSkip.current++;
+    if (frameSkip.current % 2 !== 0) return;
     mouse.current.x += (pointer.x * 5 - mouse.current.x) * 0.05;
     mouse.current.y += (-pointer.y * 3 - mouse.current.y) * 0.05;
 
     if (ref.current) {
       const pos = ref.current.geometry.attributes.position.array as Float32Array;
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < 80; i++) {
         const i3 = i * 3;
 
         const dx = pos[i3] - mouse.current.x;
@@ -85,6 +97,7 @@ function Particles() {
 
 export const ParticleField = () => {
   return (
+    <Delayed>
     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 60 }}
@@ -95,5 +108,6 @@ export const ParticleField = () => {
         <Particles />
       </Canvas>
     </div>
+    </Delayed>
   );
 };

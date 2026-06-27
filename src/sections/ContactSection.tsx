@@ -1,10 +1,25 @@
 ﻿'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
+import { motion, useMotionValue, useMotionTemplate } from 'framer-motion';
 import { Button } from '../components/Button';
 import { Reveal } from '../components/Reveal';
 
 export const ContactSection = () => {
+  const spotlightX = useMotionValue(-300);
+  const spotlightY = useMotionValue(-300);
+  const spotlightMask = useMotionTemplate`radial-gradient(400px circle at ${spotlightX}px ${spotlightY}px, black 0%, transparent 35%)`;
+
+  const handleSpotlight = useCallback((e: React.MouseEvent<HTMLHeadingElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    spotlightX.set(e.clientX - rect.left);
+    spotlightY.set(e.clientY - rect.top);
+  }, []);
+
+  const handleSpotlightLeave = useCallback(() => {
+    spotlightX.set(-300);
+    spotlightY.set(-300);
+  }, []);
   return (
     <section id="contact" className="relative section-padding z-10">
       <div className="absolute inset-y-0 left-0 w-full pointer-events-none">
@@ -24,11 +39,25 @@ export const ContactSection = () => {
             <span className="font-mono text-[10px] uppercase text-cyber-orange tracking-[0.25em] mb-4 block">
               {'//'} READY TO SCALE?
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white uppercase leading-[0.9] mb-4 sm:mb-6">
-              Your Next Million
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange to-cyber-amber">
+            <h2
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white uppercase leading-[0.9] mb-4 sm:mb-6 relative select-none"
+              onMouseMove={handleSpotlight}
+              onMouseLeave={handleSpotlightLeave}
+            >
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 via-slate-400 to-slate-500/60 block mb-1">
+                Your Next Million
+              </span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-slate-500 via-slate-400 to-slate-500/60">
                 Views Start Here
               </span>
+              <motion.span
+                className="absolute inset-0 text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange to-cyber-amber flex flex-col"
+                style={{ WebkitMaskImage: spotlightMask, maskImage: spotlightMask }}
+                aria-hidden="true"
+              >
+                <span className="mb-1">Your Next Million</span>
+                <span>Views Start Here</span>
+              </motion.span>
             </h2>
             <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto mb-10">
               Whether you are building a personal brand or scaling a business, we will help you turn content into consistent growth.
@@ -39,9 +68,6 @@ export const ContactSection = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="orange" size="lg" href="https://wa.me/917415411469" className="w-full sm:w-auto" ariaLabel="Book a discovery call">
                 Book A Discovery Call
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
               </Button>
               <Button variant="cyber" size="lg" href="#services" className="w-full sm:w-auto" ariaLabel="View our services">
                 Our Services

@@ -12,10 +12,11 @@ export const SmoothScroll = () => {
 
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t: number) => 1 - Math.pow(2, -10 * t),
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      touchMultiplier: 1.2,
+      syncTouch: true,
     });
 
     const raf = (t: number) => {

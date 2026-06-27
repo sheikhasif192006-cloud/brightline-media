@@ -1,66 +1,11 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { Reveal } from './Reveal';
 import { StaggerContainer, StaggerItem } from './Stagger';
 
 export const Footer = () => {
-  const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
-  const [emailError, setEmailError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const buildId = 'BLD-4A2C9F81';
-
-  useEffect(() => {
-    if (!subscribed) return;
-    const timer = setTimeout(() => {
-      setSubscribed(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [subscribed]);
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setEmailError('');
-
-    const trimmed = email.trim();
-    if (!trimmed) {
-      setEmailError('TRANSMIT_TARGET REQUIRED');
-      inputRef.current?.focus();
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setEmailError('INVALID_COMPILER PROTOCOL');
-      inputRef.current?.focus();
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const formData = new FormData();
-      formData.append('form-name', 'operations-logs');
-      formData.append('email', trimmed);
-
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
-      });
-
-      setIsSubmitting(false);
-      setSubscribed(true);
-      setEmail('');
-      setEmailError('');
-    } catch {
-      setIsSubmitting(false);
-      setEmailError('TRANSMISSION FAILED');
-    }
-  };
-
   const currentYear = new Date().getFullYear();
 
   return (
@@ -76,7 +21,7 @@ export const Footer = () => {
       <div className="section-container relative z-10">
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 pb-16 border-b border-white/5">
-          <Reveal className="lg:col-span-5 space-y-6" direction="up" distance={30} duration={0.7}>
+          <Reveal className="lg:col-span-12 space-y-6" direction="up" distance={30} duration={0.7}>
               <a
                 href="#home"
                 className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyber-orange rounded-sm"
@@ -104,76 +49,6 @@ export const Footer = () => {
                   LOC // GLOBAL
                 </span>
               </div>
-          </Reveal>
-
-          <Reveal className="lg:col-span-7 space-y-6" direction="up" distance={30} duration={0.7}>
-              <div>
-                <span className="font-mono text-[10px] uppercase text-cyber-orange tracking-[0.2em] mb-2 block">
-                  // LOG TRANSMISSIONS
-                </span>
-                <h4 className="text-xl font-bold tracking-tight text-white uppercase">
-                  Subscribe to Operations Logs
-                </h4>
-                <p className="text-slate-400 text-sm font-light mt-1">
-                  Receive quarterly deep-dives into our technical stacks, cinematic workflows, and
-                  product drops.
-                </p>
-              </div>
-
-              <form
-                onSubmit={handleSubscribe}
-                className="flex flex-col sm:flex-row gap-3 max-w-lg"
-                noValidate
-                data-netlify="true"
-                name="operations-logs"
-              >
-                <input type="hidden" name="form-name" value="operations-logs" />
-                <div className="relative flex-grow">
-                  <label htmlFor="footer-email" className="sr-only">
-                    Email address for newsletter
-                  </label>
-                  <input
-                    ref={inputRef}
-                    id="footer-email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (emailError) setEmailError('');
-                    }}
-                    placeholder="TRANSMIT_TARGET_EMAIL@HOST.COM"
-                    disabled={subscribed || isSubmitting}
-                    required
-                    aria-invalid={!!emailError}
-                    aria-describedby={emailError ? 'footer-email-error' : undefined}
-                    className="w-full px-5 py-3.5 bg-black/50 border border-white/10 rounded-md font-mono text-xs tracking-wider text-white placeholder-slate-600 focus:outline-none focus:border-cyber-orange/60 focus:bg-black/80 focus:shadow-[0_0_15px_rgba(255,106,1,0.15)] transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]"
-                  />
-                  {emailError && (
-                    <span
-                      id="footer-email-error"
-                      role="alert"
-                      className="absolute -bottom-5 left-0 font-mono text-[9px] text-red-400"
-                    >
-                      {emailError}
-                    </span>
-                  )}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={subscribed || isSubmitting}
-                  className="px-6 py-3.5 bg-white text-black hover:bg-cyber-orange hover:text-white hover:shadow-[0_0_20px_rgba(255,106,1,0.5)] font-mono text-[11px] font-bold uppercase tracking-widest transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] rounded-sm disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyber-orange"
-                  aria-label={subscribed ? 'Already subscribed' : 'Subscribe to newsletter'}
-                >
-                  {isSubmitting ? 'PROCESSING...' : subscribed ? 'STABILIZED' : 'SUBSCRIBE'}
-                </button>
-              </form>
-              {subscribed && (
-                <p role="status" className="font-mono text-[10px] text-emerald-400">
-                  LOG SUBMITTED — You are now locked into the transmission queue.
-                </p>
-              )}
           </Reveal>
         </div>
 

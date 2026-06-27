@@ -280,8 +280,7 @@ body {
 }
 
 .text-glow-orange-strong {
-  text-shadow: 0 0 30px rgba(255, 106, 1, 0.8), 0 0 60px rgba(255, 106, 1, 0.4), 0 0 100px rgba(255, 106, 1, 0.2);
-  animation: textGlowPulse 2.5s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 106, 1, 0.2);
 }
 
 @keyframes textGlowPulse {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Card } from '../components/Card';
 import { SectionHeader } from '../components/SectionHeader';
 import { Button } from '../components/Button';
@@ -18,26 +18,28 @@ interface ProjectData {
   results: { label: string; value: string }[];
   testimonial: { quote: string; author: string; role: string };
   service: string;
+  videoSrc?: string;
 }
 
 export const PortfolioSection = () => {
   const [filter, setFilter] = useState('ALL');
   const [selectedProject, setSelectedProject] = useState<ProjectData | null>(null);
 
-  const categories = ['ALL', 'YOUTUBE', 'REELS', 'ADS'];
+  const categories = ['ALL', 'YOUTUBE', 'REELS', 'PODCAST', 'ADS'];
 
   const projects = [
     {
-      title: 'YOUTUBE GROWTH ENGINE',
+      title: 'Long Form YT Video',
       category: 'YOUTUBE',
-      scope: 'Long-form Editing / Content Strategy',
+      scope: 'Retention Editing / Content Strategy',
       desc: 'Full content system for a finance creator. Grew subscribers from 12K to 85K in 4 months with retention-optimized edits.',
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
-      cyberNo: 'REF_01Y',
+      cyberNo: 'REF_01',
+      videoSrc: '/videos/portfolio-01.mp4',
       modal: {
         category: 'YOUTUBE',
-        title: 'YOUTUBE GROWTH ENGINE',
+        title: 'Long Form YT Video',
         description: 'Full content system for a finance creator. Grew subscribers from 12K to 85K in 4 months with retention-optimized edits.',
         stats: [{ label: 'Subscribers', value: '12K→85K' }, { label: 'Timeline', value: '4 Months' }],
         strategy: 'We developed a comprehensive content strategy focusing on retention-optimized editing, thumbnail design, and algorithmic pacing. Each video was structured to maximize AVD (Average View Duration) and drive subscriber growth through strategic CTAs and series formatting.',
@@ -59,19 +61,21 @@ export const PortfolioSection = () => {
           role: 'Finance Creator — 85K Subscribers',
         },
         service: 'YouTube Growth System',
+        videoSrc: '/videos/portfolio-01.mp4',
       },
     },
     {
-      title: 'PODCAST TO REELS',
-      category: 'REELS',
+      title: 'Podcast Clips Edits',
+      category: 'PODCAST',
       scope: 'Podcast Editing / Clip Repurposing',
       desc: 'Turned a 60-min podcast into 15 viral-ready short clips. 2M+ combined views across Instagram and TikTok within 2 weeks.',
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
-      cyberNo: 'REF_02P',
+      cyberNo: 'REF_02',
+      videoSrc: '/videos/portfolio-02.mp4',
       modal: {
-        category: 'REELS',
-        title: 'PODCAST TO REELS',
+        category: 'PODCAST',
+        title: 'Podcast Clips Edits',
         description: 'Turned a 60-min podcast into 15 viral-ready short clips. 2M+ combined views across Instagram and TikTok within 2 weeks.',
         stats: [{ label: 'Views', value: '2M+' }, { label: 'Timeline', value: '2 Weeks' }],
         strategy: 'We identified the highest-impact moments from each episode and transformed them into platform-native short-form content optimized for viral distribution. Each clip was crafted with captions, hook optimization, and trend-aware formatting.',
@@ -93,53 +97,21 @@ export const PortfolioSection = () => {
           role: 'Podcast Host — 200K+ Downloads',
         },
         service: 'Podcast Repurposing System',
+        videoSrc: '/videos/portfolio-02.mp4',
       },
     },
     {
-      title: 'BRAND AD CAMPAIGN',
-      category: 'ADS',
-      scope: 'Facebook & YouTube Ads / Hook Strategy',
-      desc: 'High-converting ad suite for a D2C brand. 4.5x ROAS with scroll-stopping hooks and platform-native formatting.',
-      glowColor: 'orange' as const,
-      colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
-      cyberNo: 'REF_03B',
-      modal: {
-        category: 'ADS',
-        title: 'BRAND AD CAMPAIGN',
-        description: 'High-converting ad suite for a D2C brand. 4.5x ROAS with scroll-stopping hooks and platform-native formatting.',
-        stats: [{ label: 'ROAS', value: '4.5x' }, { label: 'Platforms', value: '3' }],
-        strategy: 'We created a multi-platform ad suite combining short-form video ads for Facebook, YouTube, and Instagram. Each ad was tailored to platform-specific best practices while maintaining consistent brand messaging.',
-        approach: [
-          'Created 10+ ad variations for A/B testing',
-          'Optimized hook delivery within first 1.5 seconds',
-          'Platform-native formatting for Facebook, YouTube, Instagram',
-          'Iterative thumbstop score improvement cycle',
-        ],
-        results: [
-          { label: 'ROAS', value: '4.5x' },
-          { label: 'CTR', value: '3.2%' },
-          { label: 'Conversion Rate', value: '6.8%' },
-          { label: 'Ad Reach', value: '1.2M+' },
-        ],
-        testimonial: {
-          quote: 'The ad creative Brightline produced outperformed everything we had done in-house. 4.5x ROAS speaks for itself.',
-          author: 'James Park',
-          role: 'D2C Brand Founder',
-        },
-        service: 'Ad Creative Production',
-      },
-    },
-    {
-      title: 'TIKTOK VIRAL CLIPS',
+      title: 'Short Form Reels & Shorts Edit',
       category: 'REELS',
-      scope: 'TikTok Editing / Trend Adaptation',
+      scope: 'Reels & Shorts Editing / Trend Adaptation',
       desc: 'Daily short-form content for a lifestyle creator. 500K+ followers gained in 3 months with trend-aware fast-paced edits.',
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
-      cyberNo: 'REF_04T',
+      cyberNo: 'REF_03',
+      videoSrc: '/videos/portfolio-03.mp4',
       modal: {
         category: 'REELS',
-        title: 'TIKTOK VIRAL CLIPS',
+        title: 'Short Form Reels & Shorts Edit',
         description: 'Daily short-form content for a lifestyle creator. 500K+ followers gained in 3 months with trend-aware fast-paced edits.',
         stats: [{ label: 'Followers', value: '500K+' }, { label: 'Timeline', value: '3 Months' }],
         strategy: 'Daily content production with trend-aware editing. We monitored trending sounds, formats, and challenges daily to keep content fresh and algorithm-friendly.',
@@ -161,6 +133,43 @@ export const PortfolioSection = () => {
           role: 'Lifestyle Creator — 850K Followers',
         },
         service: 'TikTok Growth System',
+        videoSrc: '/videos/portfolio-03.mp4',
+      },
+    },
+    {
+      title: 'Ads Edit',
+      category: 'ADS',
+      scope: 'Facebook & YouTube Ads / Hook Strategy',
+      desc: 'High-converting ad suite for a D2C brand. 4.5x ROAS with scroll-stopping hooks and platform-native formatting.',
+      glowColor: 'orange' as const,
+      colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
+      cyberNo: 'REF_04',
+      videoSrc: '/videos/portfolio-04.mp4',
+      modal: {
+        category: 'ADS',
+        title: 'Ads Edit',
+        description: 'High-converting ad suite for a D2C brand. 4.5x ROAS with scroll-stopping hooks and platform-native formatting.',
+        stats: [{ label: 'ROAS', value: '4.5x' }, { label: 'Platforms', value: '3' }],
+        strategy: 'We created a multi-platform ad suite combining short-form video ads for Facebook, YouTube, and Instagram. Each ad was tailored to platform-specific best practices while maintaining consistent brand messaging.',
+        approach: [
+          'Created 10+ ad variations for A/B testing',
+          'Optimized hook delivery within first 1.5 seconds',
+          'Platform-native formatting for Facebook, YouTube, Instagram',
+          'Iterative thumbstop score improvement cycle',
+        ],
+        results: [
+          { label: 'ROAS', value: '4.5x' },
+          { label: 'CTR', value: '3.2%' },
+          { label: 'Conversion Rate', value: '6.8%' },
+          { label: 'Ad Reach', value: '1.2M+' },
+        ],
+        testimonial: {
+          quote: 'The ad creative Brightline produced outperformed everything we had done in-house. 4.5x ROAS speaks for itself.',
+          author: 'James Park',
+          role: 'D2C Brand Founder',
+        },
+        service: 'Ad Creative Production',
+        videoSrc: '/videos/portfolio-04.mp4',
       },
     },
   ];
@@ -175,9 +184,45 @@ export const PortfolioSection = () => {
     }
   };
 
+  const PortfolioVideo = ({ src }: { src: string }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [playing, setPlaying] = useState(false);
+
+    const handleEnter = () => {
+      const vid = videoRef.current;
+      if (!vid) return;
+      vid.muted = false;
+      vid.currentTime = 0;
+      vid.play().then(() => setPlaying(true)).catch(() => {});
+    };
+
+    const handleLeave = () => {
+      const vid = videoRef.current;
+      if (!vid) return;
+      vid.pause();
+      setPlaying(false);
+    };
+
+    return (
+      <div className="absolute inset-0" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+        <video ref={videoRef} className="w-full h-full object-contain" muted loop playsInline>
+          <source src={src} type="video/mp4" />
+        </video>
+        {!playing && (
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]">
+            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 backdrop-blur-md flex items-center justify-center group-hover:border-cyber-orange group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,106,1,0.5)] transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
+              <svg className="w-5 h-5 text-white ml-0.5 group-hover:text-cyber-orange transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section id="work" className="relative section-padding z-10">
-      {/* Background vertical accent lines — section-container aligned */}
       <div className="absolute inset-y-0 left-0 w-full pointer-events-none">
         <div className="section-container h-full relative">
           <div className="absolute inset-y-0 left-[clamp(1rem,3vw,3rem)] w-[1px] bg-gradient-to-b from-transparent via-white/5 to-transparent" />
@@ -187,7 +232,7 @@ export const PortfolioSection = () => {
 
       <div className="section-container">
         <SectionHeader
-          number="02"
+          number="04"
           category="showcase"
           title="Creative Work That Delivers"
           description="Real results from real creators. Each project is engineered for performance, reach, and brand growth."
@@ -238,19 +283,23 @@ export const PortfolioSection = () => {
                     <span className="absolute bottom-2 right-2 font-mono text-[8px] text-white/25" aria-hidden="true">
                       LOCK_READY
                     </span>
-                    <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-cyber-orange/40 transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] relative">
-                      <span className="absolute inset-0 rounded-full border border-cyber-orange/20 opacity-0 group-hover:opacity-40" />
-                      <svg
-                        className="w-5 h-5 text-slate-400 group-hover:text-cyber-orange transition-colors"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </div>
+                    {project.videoSrc ? (
+                      <PortfolioVideo src={project.videoSrc} />
+                    ) : (
+                      <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-cyber-orange/40 transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] relative">
+                        <span className="absolute inset-0 rounded-full border border-cyber-orange/20 opacity-0 group-hover:opacity-40" />
+                        <svg
+                          className="w-5 h-5 text-slate-400 group-hover:text-cyber-orange transition-colors"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          aria-hidden="true"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <span className="text-[11px] font-mono text-cyber-orange tracking-widest block mb-1">

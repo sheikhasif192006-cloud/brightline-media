@@ -31,7 +31,7 @@ export const FAQSection = () => {
 
       <div className="section-container">
         <SectionHeader
-          number="05"
+          number="07"
           category="faq's"
           title="Your Questions Our Answers"
           description="Find detailed answers regarding our creative workflow, transparent pricing, and delivery process."
@@ -43,7 +43,7 @@ export const FAQSection = () => {
               <div className="border-b border-white/5 last:border-b-0">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between py-5 text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyber-orange focus-visible:ring-inset"
+                  className="w-full flex items-center justify-between py-5 text-left group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyber-orange focus-visible:ring-inset hover:scale-[1.01] active:scale-[0.99] transition-all duration-500 will-change-transform"
                   aria-expanded={openIndex === index}
                 >
                   <span className="text-sm md:text-base font-medium text-white group-hover:text-cyber-orange transition-colors duration-300 pr-4">

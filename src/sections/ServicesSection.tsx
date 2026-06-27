@@ -97,7 +97,6 @@ export const ServicesSection = () => {
           <StaggerItem key={service.title} direction="up" distance={50}>
             <Card
               title={service.title}
-              subtitle={`SYSTEM SERVICE // 0${index + 1}`}
               glowColor={service.glowColor}
               headerAccent={service.icon}
               className="h-full"

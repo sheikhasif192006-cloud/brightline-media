@@ -36,7 +36,7 @@ export const CustomCursor = () => {
       }}
       aria-hidden="true"
     >
-      <div className="w-10 h-10 rounded-full bg-cyber-orange/15 border border-cyber-orange/50 shadow-[0_0_25px_rgba(255,106,1,0.5),0_0_50px_rgba(255,106,1,0.2)] animate-ping-slow" />
+      <div className="w-10 h-10 rounded-full bg-cyber-orange/15 border border-cyber-orange/50 shadow-[0_0_40px_rgba(255,106,1,0.7),0_0_120px_rgba(255,106,1,0.35),0_0_200px_rgba(255,106,1,0.15)] animate-ping-slow" />
     </div>
   );
 };

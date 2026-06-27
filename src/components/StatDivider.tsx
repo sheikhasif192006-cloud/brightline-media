@@ -42,10 +42,10 @@ export const StatDivider = () => {
       <div className="section-container py-16 md:py-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { target: 200, suffix: '+', label: 'Projects Delivered' },
-            { target: 50, suffix: '+', label: 'Brands Trusted' },
+            { target: 500, suffix: '+', label: 'Projects Delivered' },
+            { target: 25, suffix: '+', label: 'Clients' },
             { target: 98, suffix: '%', label: 'Client Satisfaction' },
-            { target: 4.9, suffix: '', label: 'Avg. Rating' },
+            { target: 9, suffix: '', label: 'Avg. Rating' },
           ].map((stat, i) => (
             <div key={stat.label} className="space-y-2">
               <span className="block text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-cyber-orange to-cyber-amber">

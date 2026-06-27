@@ -38,7 +38,7 @@ export const ProcessSection = () => {
 
       <div className="section-container">
         <SectionHeader
-          number="03"
+          number="05"
           category="process"
           title="Our Three-Step Process"
           description="From raw footage to a polished final cut, we have streamlined every step to ensure a seamless experience for your brand."
@@ -64,7 +64,7 @@ export const ProcessSection = () => {
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8" staggerDelay={0.15}>
           {steps.map((step) => (
             <StaggerItem key={step.num} direction="up" distance={50}>
-              <div className="glass-panel rounded-lg p-6 lg:p-8 border border-white/5 h-full flex flex-col group hover:border-cyber-orange/30 transition-all duration-500">
+              <div className="glass-panel rounded-lg p-6 lg:p-8 border border-white/5 h-full flex flex-col group hover:border-cyber-orange/30 hover:scale-[1.02] hover:shadow-[0_20px_60px_rgba(0,0,0,0.5)] transition-all duration-500 will-change-transform">
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyber-orange to-cyber-amber">
                     {step.num}
