@@ -5,8 +5,16 @@ import React, { useEffect, useState } from 'react';
 export const CustomCursor = () => {
   const [pos, setPos] = useState({ x: -100, y: -100 });
   const [visible, setVisible] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
 
   useEffect(() => {
+    const checkTouch = () => setIsTouch(true);
+    window.addEventListener('touchstart', checkTouch, { once: true });
+    return () => window.removeEventListener('touchstart', checkTouch);
+  }, []);
+
+  useEffect(() => {
+    if (isTouch) return;
     const move = (e: MouseEvent) => {
       setPos({ x: e.clientX, y: e.clientY });
       if (!visible) setVisible(true);
@@ -23,7 +31,9 @@ export const CustomCursor = () => {
       document.removeEventListener('mouseleave', leave);
       document.removeEventListener('mouseenter', enter);
     };
-  }, [visible]);
+  }, [visible, isTouch]);
+
+  if (isTouch) return null;
 
   return (
     <div

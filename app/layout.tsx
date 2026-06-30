@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth overflow-x-hidden`}
     >
       <body className="bg-black text-foreground min-h-screen selection:bg-cyber-orange/30 selection:text-cyber-orange noise-overlay cursor-none md:cursor-none">
         <SmoothScroll />

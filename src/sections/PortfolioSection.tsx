@@ -18,7 +18,7 @@ interface ProjectData {
   results: { label: string; value: string }[];
   testimonial: { quote: string; author: string; role: string };
   service: string;
-  videoSrc?: string;
+  videos: string[];
 }
 
 export const PortfolioSection = () => {
@@ -36,7 +36,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_01',
-      videoSrc: '/videos/portfolio-01.mp4',
+      videos: ['/videos/portfolio-01.mp4'],
       modal: {
         category: 'YOUTUBE',
         title: 'Long Form YT Video',
@@ -61,7 +61,7 @@ export const PortfolioSection = () => {
           role: 'Finance Creator — 85K Subscribers',
         },
         service: 'YouTube Growth System',
-        videoSrc: '/videos/portfolio-01.mp4',
+        videos: ['/videos/portfolio-01.mp4'],
       },
     },
     {
@@ -72,7 +72,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_02',
-      videoSrc: '/videos/portfolio-02.mp4',
+      videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4', '/videos/portfolio-02b.mp4'],
       modal: {
         category: 'PODCAST',
         title: 'Podcast Clips Edits',
@@ -97,7 +97,7 @@ export const PortfolioSection = () => {
           role: 'Podcast Host — 200K+ Downloads',
         },
         service: 'Podcast Repurposing System',
-        videoSrc: '/videos/portfolio-02.mp4',
+        videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4', '/videos/portfolio-02b.mp4'],
       },
     },
     {
@@ -108,7 +108,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_03',
-      videoSrc: '/videos/portfolio-03.mp4',
+      videos: ['/videos/portfolio-03.mp4', '/videos/portfolio-03a.mp4', '/videos/portfolio-03b.mp4', '/videos/portfolio-03c.mp4'],
       modal: {
         category: 'REELS',
         title: 'Short Form Reels & Shorts Edit',
@@ -133,7 +133,7 @@ export const PortfolioSection = () => {
           role: 'Lifestyle Creator — 850K Followers',
         },
         service: 'TikTok Growth System',
-        videoSrc: '/videos/portfolio-03.mp4',
+        videos: ['/videos/portfolio-03.mp4', '/videos/portfolio-03a.mp4', '/videos/portfolio-03b.mp4', '/videos/portfolio-03c.mp4'],
       },
     },
     {
@@ -144,7 +144,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_04',
-      videoSrc: '/videos/portfolio-04.mp4',
+      videos: ['/videos/portfolio-04.mp4'],
       modal: {
         category: 'ADS',
         title: 'Ads Edit',
@@ -169,7 +169,7 @@ export const PortfolioSection = () => {
           role: 'D2C Brand Founder',
         },
         service: 'Ad Creative Production',
-        videoSrc: '/videos/portfolio-04.mp4',
+        videos: ['/videos/portfolio-04.mp4'],
       },
     },
   ];
@@ -184,39 +184,82 @@ export const PortfolioSection = () => {
     }
   };
 
-  const PortfolioVideo = ({ src }: { src: string }) => {
+  const PortfolioVideos = ({ srcs }: { srcs: string[] }) => {
+    const [currentIdx, setCurrentIdx] = useState(0);
     const videoRef = useRef<HTMLVideoElement>(null);
     const [playing, setPlaying] = useState(false);
+    const isMulti = srcs.length > 1;
+    const isFirstRender = useRef(true);
 
-    const handleEnter = () => {
-      const vid = videoRef.current;
-      if (!vid) return;
-      vid.muted = false;
-      vid.currentTime = 0;
-      vid.play().then(() => setPlaying(true)).catch(() => {});
-    };
+    const curSrc = srcs[currentIdx] || srcs[0];
 
-    const handleLeave = () => {
-      const vid = videoRef.current;
-      if (!vid) return;
-      vid.pause();
+    const play = useCallback(() => {
+      const v = videoRef.current;
+      if (!v) return;
+      isFirstRender.current = false;
+      v.muted = false;
+      v.currentTime = 0;
+      v.play().then(() => setPlaying(true)).catch(() => {});
+    }, []);
+
+    const pause = useCallback(() => {
+      const v = videoRef.current;
+      if (!v) return;
+      v.pause();
       setPlaying(false);
-    };
+    }, []);
+
+    const toggle = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
+      const v = videoRef.current;
+      if (!v) return;
+      if (playing) { v.pause(); setPlaying(false); }
+      else { v.muted = false;       v.muted = true;
+      v.currentTime = 0;
+      v.play().then(() => setPlaying(true)).catch(() => {}); }
+    }, [playing]);
+
+    const goNext = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (currentIdx < srcs.length - 1) setCurrentIdx(prev => prev + 1);
+    }, [currentIdx, srcs.length]);
+
+    const goPrev = useCallback((e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (currentIdx > 0) setCurrentIdx(prev => prev - 1);
+    }, [currentIdx]);
 
     return (
-      <div className="absolute inset-0" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-        <video ref={videoRef} className="w-full h-full object-contain" muted loop playsInline>
-          <source src={src} type="video/mp4" />
-        </video>
-        {!playing && (
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]">
-            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 backdrop-blur-md flex items-center justify-center group-hover:border-cyber-orange group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,106,1,0.5)] transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none">
-              <svg className="w-5 h-5 text-white ml-0.5 group-hover:text-cyber-orange transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+          <div className="absolute inset-0" onMouseEnter={play} onMouseLeave={pause} onClick={toggle}>
+            <video key={currentIdx} ref={videoRef} className="w-full h-full object-contain" muted loop playsInline onPause={() => setPlaying(false)} onPlay={(e) => { if (isFirstRender.current) { isFirstRender.current = false; e.currentTarget.pause(); setPlaying(false); } else { setPlaying(true); } }}>
+              <source src={curSrc} type="video/mp4" />
+            </video>
+            {!playing && (
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 backdrop-blur-md flex items-center justify-center group-hover:border-cyber-orange group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(255,106,1,0.5)] transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)]">
+                  <svg className="w-5 h-5 text-white ml-0.5 group-hover:text-cyber-orange transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            )}
+        {isMulti && <>
+          {currentIdx > 0 && (
+            <button onClick={goPrev} className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-cyber-orange hover:border-cyber-orange/40 transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] z-20" aria-label="Previous video">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            </button>
+          )}
+          {currentIdx < srcs.length - 1 && (
+            <button onClick={goNext} className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-cyber-orange hover:border-cyber-orange/40 transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] z-20" aria-label="Next video">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+            </button>
+          )}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-20 pointer-events-none">
+            {srcs.map((_, i) => (
+              <span key={i} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${i === currentIdx ? 'bg-cyber-orange w-3' : 'bg-white/20'}`} />
+            ))}
           </div>
-        )}
+        </>}
       </div>
     );
   };
@@ -283,23 +326,7 @@ export const PortfolioSection = () => {
                     <span className="absolute bottom-2 right-2 font-mono text-[8px] text-white/25" aria-hidden="true">
                       LOCK_READY
                     </span>
-                    {project.videoSrc ? (
-                      <PortfolioVideo src={project.videoSrc} />
-                    ) : (
-                      <div className="w-16 h-16 rounded-full border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-cyber-orange/40 transition-all duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] relative">
-                        <span className="absolute inset-0 rounded-full border border-cyber-orange/20 opacity-0 group-hover:opacity-40" />
-                        <svg
-                          className="w-5 h-5 text-slate-400 group-hover:text-cyber-orange transition-colors"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                      </div>
-                    )}
+                    <PortfolioVideos srcs={project.videos} />
                   </div>
                   <div>
                     <span className="text-[11px] font-mono text-cyber-orange tracking-widest block mb-1">
@@ -308,7 +335,7 @@ export const PortfolioSection = () => {
                     <p className="text-slate-400 font-light text-sm leading-relaxed mt-2">{project.desc}</p>
                   </div>
                   <div className="pt-2 border-t border-white/5">
-                    <Button variant="text" size="sm" className="group/btn text-cyber-orange!" ariaLabel={`Inspect case study for ${project.title}`}>
+                    <Button variant="orange" size="sm" ariaLabel={`Inspect case study for ${project.title}`}>
                       Inspect Case Study
                       <span className="inline-block transition-transform duration-[0.4s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:translate-x-1">
                         {' '}

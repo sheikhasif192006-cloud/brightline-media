@@ -96,6 +96,15 @@ function Particles() {
 }
 
 export const ParticleField = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    const isMobile = window.matchMedia('(max-width: 767px)').matches || 'ontouchstart' in window;
+    if (!isMobile) setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <Delayed>
     <div className="absolute inset-0 pointer-events-none" aria-hidden="true">

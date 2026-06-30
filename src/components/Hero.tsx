@@ -37,6 +37,19 @@ export const Hero = () => {
     vid.pause();
     setPlaying(false);
   };
+
+  const handleVideoTouch = () => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (playing) {
+      vid.pause();
+      setPlaying(false);
+    } else {
+      vid.muted = false;
+      vid.currentTime = 0;
+      vid.play().then(() => setPlaying(true)).catch(() => {});
+    }
+  };
   return (
     <section
       id="home"
@@ -119,6 +132,7 @@ export const Hero = () => {
             <div className="w-full max-w-lg lg:max-w-none relative group cursor-pointer"
               onMouseEnter={handleVideoEnter}
               onMouseLeave={handleVideoLeave}
+              onClick={handleVideoTouch}
             >
               <div className="absolute inset-x-0 -top-8 -bottom-8 bg-gradient-to-tr from-cyber-orange/10 to-cyber-amber/10 blur-3xl rounded-full opacity-40 md:opacity-60 group-hover:opacity-100 group-hover:scale-105 duration-700 pointer-events-none" />
 

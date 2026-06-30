@@ -22,6 +22,10 @@ export const Navbar = () => {
     toggleRef.current?.focus();
   }, []);
 
+  const toggleMenu = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
   // Close on Escape
   useEffect(() => {
     if (!isOpen) return;
@@ -32,15 +36,18 @@ export const Navbar = () => {
     return () => document.removeEventListener('keydown', handleKey);
   }, [isOpen, closeDrawer]);
 
-  // Lock body scroll when menu open
+  // Lock scroll
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      window.__lenis?.stop();
     } else {
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.__lenis?.start();
     }
     return () => {
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.__lenis?.start();
     };
   }, [isOpen]);
 
@@ -108,7 +115,7 @@ export const Navbar = () => {
         {/* Mobile Hamburger */}
         <button
           ref={toggleRef}
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={toggleMenu}
           className="md:hidden text-white hover:text-cyber-orange transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyber-orange rounded-sm p-3 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-expanded={isOpen}
           aria-controls="mobile-menu"
@@ -128,33 +135,26 @@ export const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
-      {isOpen && (
-        <div
-          className="md:hidden fixed inset-0 z-30 bg-black/60"
-          onClick={closeDrawer}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile Drawer */}
+      {/* Mobile Full-Screen Menu (includes background + content) */}
       <div
         id="mobile-menu"
         ref={drawerRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
+        onClick={closeDrawer}
+        onTouchMove={(e) => e.preventDefault()}
         className={`
-          md:hidden fixed top-0 right-0 h-full w-[280px] max-w-[85vw] bg-black/95 backdrop-blur-xl z-40 transition-all duration-300 border-l border-white/5 shadow-2xl
-          ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+          md:hidden fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/90 backdrop-blur-md transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]
+          ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}
         `.trim()}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8 px-8">
-          <div className="absolute inset-0 cyber-grid opacity-[0.25] pointer-events-none" />
+        <div className="absolute inset-0 cyber-grid opacity-[0.12] pointer-events-none" />
 
+        <div className="relative flex flex-col items-center gap-4 sm:gap-5" onClick={(e) => e.stopPropagation()}>
           <button
             onClick={closeDrawer}
-            className="absolute top-5 right-5 text-white/60 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="absolute -top-16 right-0 sm:-top-20 text-white/60 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Close menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -168,10 +168,10 @@ export const Navbar = () => {
               href={link.href}
               onClick={closeDrawer}
               className={`
-                text-xl uppercase tracking-widest font-mono text-slate-300 hover:text-cyber-orange transition-all duration-300 transform hover:translate-x-2 focus-visible:outline-none focus-visible:text-cyber-orange
-                ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+                text-xl sm:text-2xl uppercase tracking-[0.15em] font-mono text-slate-300 hover:text-cyber-orange transition-all duration-300 hover:translate-x-2 focus-visible:outline-none focus-visible:text-cyber-orange py-1
+                ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}
               `}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ transitionDelay: `${index * 80}ms` }}
             >
               {link.label}
             </a>
@@ -179,10 +179,10 @@ export const Navbar = () => {
 
           <div
             className={`
-              mt-4 w-full transform transition-all duration-500
-              ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+              w-full min-w-[200px] mt-2 transition-all duration-500
+              ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}
             `}
-            style={{ transitionDelay: `${navLinks.length * 100}ms` }}
+            style={{ transitionDelay: `${navLinks.length * 80 + 40}ms` }}
           >
             <Button
               variant="orange"

@@ -18,7 +18,7 @@ import Footer from '@/src/components/Footer';
 
 export default function Home() {
   return (
-    <main id="home" className="relative min-h-screen text-white bg-[#030303] overflow-hidden">
+    <main id="home" className="relative min-h-screen text-white bg-[#030303]">
       {/* Immersive Dark Futuristic Background Engine */}
       <BackgroundEffect />
 

@@ -23,6 +23,19 @@ export const ResultsSection = () => {
     setIsPlaying(false);
   }, []);
 
+  const handleTouch = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isPlaying) {
+      v.pause();
+      setIsPlaying(false);
+    } else {
+      v.muted = false;
+      v.currentTime = 0;
+      v.play().then(() => setIsPlaying(true)).catch(() => {});
+    }
+  }, [isPlaying]);
+
   return (
     <section id="results" className="relative section-padding z-10">
       <div className="absolute inset-y-0 left-0 w-full pointer-events-none">
@@ -51,6 +64,7 @@ export const ResultsSection = () => {
             className="relative rounded-2xl overflow-hidden bg-white/[0.02] border border-white/5 group cursor-pointer"
             onMouseEnter={play}
             onMouseLeave={pause}
+            onClick={handleTouch}
           >
             <div className="relative overflow-hidden bg-black aspect-[3/5] sm:aspect-[9/16] mx-auto max-h-[55vh]">
               <video
