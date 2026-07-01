@@ -120,7 +120,7 @@ export const Hero = () => {
                 <Button variant="orange" size="lg" href="#contact" ariaLabel="Get started" className="w-full sm:w-auto">
                   Get Started
                 </Button>
-                <Button variant="cyber" size="lg" href="https://youtube.com" ariaLabel="Watch showreel" className="w-full sm:w-auto">
+                <Button variant="cyber" size="lg" href="/videos/showreel.mp4" ariaLabel="Watch showreel" className="w-full sm:w-auto">
                   Watch Showreel
                 </Button>
               </div>

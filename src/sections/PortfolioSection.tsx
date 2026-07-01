@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { Card } from '../components/Card';
 import { SectionHeader } from '../components/SectionHeader';
 import { Button } from '../components/Button';
@@ -190,6 +190,7 @@ export const PortfolioSection = () => {
     const [playing, setPlaying] = useState(false);
     const isMulti = srcs.length > 1;
     const isFirstRender = useRef(true);
+    const hasAutoPlayed = useRef(false);
 
     const curSrc = srcs[currentIdx] || srcs[0];
 
@@ -197,7 +198,8 @@ export const PortfolioSection = () => {
       const v = videoRef.current;
       if (!v) return;
       isFirstRender.current = false;
-      v.muted = false;
+      hasAutoPlayed.current = true;
+      v.muted = true;
       v.currentTime = 0;
       v.play().then(() => setPlaying(true)).catch(() => {});
     }, []);
@@ -214,10 +216,18 @@ export const PortfolioSection = () => {
       const v = videoRef.current;
       if (!v) return;
       if (playing) { v.pause(); setPlaying(false); }
-      else { v.muted = false;       v.muted = true;
-      v.currentTime = 0;
-      v.play().then(() => setPlaying(true)).catch(() => {}); }
+      else { hasAutoPlayed.current = true; v.muted = true; v.currentTime = 0; v.play().then(() => setPlaying(true)).catch(() => {}); }
     }, [playing]);
+
+    useEffect(() => {
+      if (isFirstRender.current) return;
+      hasAutoPlayed.current = true;
+      const v = videoRef.current;
+      if (!v) return;
+      v.muted = true;
+      v.currentTime = 0;
+      v.play().then(() => setPlaying(true)).catch(() => {});
+    }, [currentIdx]);
 
     const goNext = useCallback((e: React.MouseEvent) => {
       e.stopPropagation();
@@ -231,7 +241,7 @@ export const PortfolioSection = () => {
 
     return (
           <div className="absolute inset-0" onMouseEnter={play} onMouseLeave={pause} onClick={toggle}>
-            <video key={currentIdx} ref={videoRef} className="w-full h-full object-contain" muted loop playsInline onPause={() => setPlaying(false)} onPlay={(e) => { if (isFirstRender.current) { isFirstRender.current = false; e.currentTarget.pause(); setPlaying(false); } else { setPlaying(true); } }}>
+            <video key={currentIdx} ref={videoRef} className="w-full h-full object-contain" loop playsInline onPause={() => setPlaying(false)} onPlay={(e) => { if (isFirstRender.current) { isFirstRender.current = false; e.currentTarget.pause(); setPlaying(false); } else { setPlaying(true); } }}>
               <source src={curSrc} type="video/mp4" />
             </video>
             {!playing && (
