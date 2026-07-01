@@ -216,7 +216,7 @@ export const PortfolioSection = () => {
       const v = videoRef.current;
       if (!v) return;
       if (playing) { v.pause(); setPlaying(false); }
-      else { hasAutoPlayed.current = true; v.muted = true; v.currentTime = 0; v.play().then(() => setPlaying(true)).catch(() => {}); }
+      else { hasAutoPlayed.current = true; v.muted = false; v.currentTime = 0; v.play().then(() => setPlaying(true)).catch(() => {}); }
     }, [playing]);
 
     useEffect(() => {
