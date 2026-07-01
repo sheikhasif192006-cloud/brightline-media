@@ -199,7 +199,7 @@ export const PortfolioSection = () => {
       if (!v) return;
       isFirstRender.current = false;
       hasAutoPlayed.current = true;
-      v.muted = true;
+      v.muted = false;
       v.currentTime = 0;
       v.play().then(() => setPlaying(true)).catch(() => {});
     }, []);
@@ -224,7 +224,7 @@ export const PortfolioSection = () => {
       hasAutoPlayed.current = true;
       const v = videoRef.current;
       if (!v) return;
-      v.muted = true;
+      v.muted = false;
       v.currentTime = 0;
       v.play().then(() => setPlaying(true)).catch(() => {});
     }, [currentIdx]);
