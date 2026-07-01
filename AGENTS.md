@@ -36,7 +36,31 @@ git clone https://github.com/sheikhasif192006-cloud/aurelius-erp.git
 git clone https://github.com/sheikhasif192006-cloud/hive-ai-pro.git
 ```
 
-### 3. Har project ke liye:
+### 3. OpenCode setup (AI assistant ke liye):
+```bash
+# Install OpenCode CLI
+winget install opencode
+
+# Global config banao
+mkdir -p ~\.config\opencode
+```
+
+`~\.config\opencode\opencode.jsonc` file banao with:
+```jsonc
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "google/gemini-3.1-flash-lite-preview"
+}
+```
+
+System environment variables set karo (Permanent):
+```powershell
+[System.Environment]::SetEnvironmentVariable("OPENROUTER_API_KEY", "sk-or-v1-tumhara-key-yahan", "User")
+[System.Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "sk-or-v1-tumhara-key-yahan", "User")
+```
+Note: OpenRouter ka API key use hota hai (`sk-or-v1-...`). Yaha se lo: https://openrouter.ai/keys
+
+### 4. Har project ke liye:
 ```bash
 cd brightline-media
 npm install
@@ -48,26 +72,34 @@ npm run build      # production build
 
 ## 🌐 Brightline Media — Quick Reference
 
-### Deploy to Netlify:
+### Deploy to Cloudflare Pages:
 ```bash
 cd brightline-media
 npm run build
-netlify deploy --prod --dir=out
+```
+Phir `out/` folder ko Cloudflare Pages dashboard mein drag-drop karo:
+1. https://dash.cloudflare.com/ → Pages
+2. Project `brightline-media` → "Create deployment"
+3. `out/` folder drag-drop
+
+CLI se deploy (pehle API token banao with Pages:Edit permission):
+```powershell
+$env:CLOUDFLARE_API_TOKEN = "cfat_..."
+npx wrangler pages deploy out --project-name=brightline-media --commit-dirty=true
 ```
 
 ### Login:
 ```bash
-netlify login                    # Login
-netlify status                   # Check status
+npx wrangler login              # Login (interactive mode)
+# Ya API token use karo:
+$env:CLOUDFLARE_API_TOKEN = "cfat_..."
 ```
 
 ### Credentials:
-- Netlify: sheikh.asif.192006@gmail.com
+- Cloudflare: Sheikh.asif.192006@gmail.com
 - GitHub Account: sheikhasif192006-cloud
-- Domain: brightlinemedia.com
-
-### Netlify Site ID: ada025b7-ec7c-4fe7-9d69-10bfc6c95498
-### Account ID: 6a03850ba225257319633958
+- Domain: brightlinemedia.com → Cloudflare Pages
+- Live URL: https://brightline-media.pages.dev/
 
 ---
 
