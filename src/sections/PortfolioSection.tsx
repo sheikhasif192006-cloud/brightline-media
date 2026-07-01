@@ -72,7 +72,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_02',
-      videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4'],
+      videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4', '/videos/portfolio-02b.mp4'],
       modal: {
         category: 'PODCAST',
         title: 'Podcast Clips Edits',
@@ -97,7 +97,7 @@ export const PortfolioSection = () => {
           role: 'Podcast Host — 200K+ Downloads',
         },
         service: 'Podcast Repurposing System',
-        videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4'],
+        videos: ['/videos/portfolio-02.mp4', '/videos/portfolio-02a.mp4', '/videos/portfolio-02b.mp4'],
       },
     },
     {
@@ -108,7 +108,7 @@ export const PortfolioSection = () => {
       glowColor: 'orange' as const,
       colorGrad: 'from-orange-900/40 via-amber-950/20 to-black',
       cyberNo: 'REF_03',
-      videos: ['/videos/portfolio-03.mp4'],
+      videos: ['/videos/portfolio-03.mp4', '/videos/portfolio-03a.mp4', '/videos/portfolio-03b.mp4', '/videos/portfolio-03c.mp4'],
       modal: {
         category: 'REELS',
         title: 'Short Form Reels & Shorts Edit',
@@ -133,7 +133,7 @@ export const PortfolioSection = () => {
           role: 'Lifestyle Creator — 850K Followers',
         },
         service: 'TikTok Growth System',
-        videos: ['/videos/portfolio-03.mp4'],
+        videos: ['/videos/portfolio-03.mp4', '/videos/portfolio-03a.mp4', '/videos/portfolio-03b.mp4', '/videos/portfolio-03c.mp4'],
       },
     },
     {
