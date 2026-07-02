@@ -1,52 +1,61 @@
-# BRIGHTLINE MEDIA — Complete Project Guide
+# BRIGHTLINE MEDIA — COMPLETE A TO Z GUIDE
 
-## 📦 GitHub Repos (Sab Projects)
-| Project | GitHub | Tech |
-|---------|--------|------|
-| **brightline-media** | https://github.com/sheikhasif192006-cloud/brightline-media | Next.js 16 + Tailwind v4 + Framer Motion |
-| **axility-ai** | https://github.com/sheikhasif192006-cloud/axility-ai | Next.js 16 + Supabase |
-| **aurelius-erp** | https://github.com/sheikhasif192006-cloud/aurelius-erp | Vite+React 19 (frontend) + Express+Prisma (backend) |
-| **hive-ai-pro** | https://github.com/sheikhasif192006-cloud/hive-ai-pro | Vite+React 19 + Three.js (frontend) + Express+Mongoose (backend) + Electron (desktop) |
+Naye PC (Indore) se lekar deploy karne tak sab kuch.
 
 ---
 
-## 🔧 Indore PC Setup (Naye PC pe kaise chalana hai)
+## 📦 PHASE 1: PC READY KARO
 
-### 1. Install karo:
-```bash
-# Node.js
+### Step 1: Windows PC pe yeh sab install karo
+
+**PowerShell (Terminal) kholo** aur yeh commands run karo:
+
+```powershell
+# Node.js — yeh zaroori hai project chalane ke liye
 winget install OpenJS.NodeJS.LTS
 
-# Git
+# Git — code download/upload ke liye
 winget install Git.Git
 
-# GitHub CLI
+# GitHub CLI — GitHub se connect karne ke liye
 winget install GitHub.cli
 
-# VS Code
+# VS Code — code edit karne ke liye
 winget install Microsoft.VisualStudioCode
+
+# FFmpeg — video compress karne ke liye (Cloudflare deploy ke liye)
+winget install Gyan.FFmpeg
 ```
 
-### 2. Clone all repos (Code Download karna):
+> **Note:** Har command ke baad Enter dabao. Install hone ka wait karo, phir agla command run karo.
 
-#### Option A: GitHub Desktop (Easy — GUI)
-1. **GitHub Desktop** download karo: https://desktop.github.com/
-2. Install karo aur GitHub se login karo (sheikhasif192006-cloud)
-3. **File → Clone Repository → URL tab**
-4. URL paste karo: `https://github.com/sheikhasif192006-cloud/brightline-media.git`
-5. **Choose local path** → `C:\Projects`
-6. **Clone** button daba do
-7. Baaki repos ke liye bhi same karo:
+### Step 2: VS Code install karte waqt yeh karna
+
+VS Code installer mein **"Add to PATH"** checkbox **zaroor select** karo.
+
+---
+
+## 📁 PHASE 2: CODE DOWNLOAD KARO (CLONE)
+
+### Option A: GitHub Desktop (Easy — Button se)
+1. Google Chrome kholo → https://desktop.github.com/ → **Download** karo
+2. Install karo → Open karo → **Sign in to GitHub**
+3. Login: **sheikhasif192006-cloud** (browser khulega)
+4. **File → Clone Repository → URL tab**
+5. URL paste karo: `https://github.com/sheikhasif192006-cloud/brightline-media.git`
+6. **Choose local path** → `C:\Projects`
+7. **Clone** button daba do
+8. Baaki projects ke liye bhi same karo:
    - `https://github.com/sheikhasif192006-cloud/axility-ai.git`
    - `https://github.com/sheikhasif192006-cloud/aurelius-erp.git`
    - `https://github.com/sheikhasif192006-cloud/hive-ai-pro.git`
 
-#### Option B: Command Line (Terminal)
+### Option B: Command Line (Terminal)
 ```powershell
 # Pehle Projects folder banao
 mkdir C:\Projects -Force
 
-# Phir clone karo
+# Phir clone karo — ek ek karke
 cd C:\Projects
 git clone https://github.com/sheikhasif192006-cloud/brightline-media.git
 git clone https://github.com/sheikhasif192006-cloud/axility-ai.git
@@ -54,16 +63,43 @@ git clone https://github.com/sheikhasif192006-cloud/aurelius-erp.git
 git clone https://github.com/sheikhasif192006-cloud/hive-ai-pro.git
 ```
 
-### 3. OpenCode setup (AI assistant ke liye):
-```bash
-# Install OpenCode CLI
-winget install opencode
+---
 
-# Global config banao
-mkdir -p ~\.config\opencode
+## ⚙️ PHASE 3: PROJECT CHALAO
+
+### Step 1: Packages install karo
+```powershell
+cd C:\Projects\brightline-media
+npm install
 ```
 
-`~\.config\opencode\opencode.jsonc` file banao with:
+> **Agar error aaye** to `npm install --legacy-peer-deps` try karo.
+
+### Step 2: Project start karo
+```powershell
+npm run dev
+```
+Browser mein jaao → **http://localhost:3000** — site dikhni chahiye.
+
+### Step 3: Build karo (production ready)
+```powershell
+npm run build
+```
+Sab green hona chahiye, koi error nahi aana chahiye.
+
+---
+
+## 🤖 PHASE 4: OPENCODE SETUP (AI ASSISTANT)
+
+### Step 1: OpenCode install karo
+```powershell
+winget install opencode
+```
+
+### Step 2: Config file banao
+Folder banao: `C:\Users\saddam uddin mondal\.config\opencode`
+
+Us folder mein **opencode.jsonc** naam ki nayi file banao. Uss file mein yeh daalo:
 ```jsonc
 {
   "$schema": "https://opencode.ai/config.json",
@@ -71,69 +107,170 @@ mkdir -p ~\.config\opencode
 }
 ```
 
-System environment variables set karo (Permanent):
+### Step 3: API key set karo
+OpenRouter ka API key chahiye:
+1. Browser kholo → https://openrouter.ai/keys
+2. Login karo (Google se ho sakta hai)
+3. **Create Key** dabao
+4. Copy karo (kuch aisa: `sk-or-v1-abcdef123456789...`)
+5. **PowerShell mein yeh run karo** (permanently set hoga):
+
 ```powershell
 [System.Environment]::SetEnvironmentVariable("OPENROUTER_API_KEY", "sk-or-v1-tumhara-key-yahan", "User")
 [System.Environment]::SetEnvironmentVariable("OPENAI_API_KEY", "sk-or-v1-tumhara-key-yahan", "User")
 ```
-Note: OpenRouter ka API key use hota hai (`sk-or-v1-...`). Yaha se lo: https://openrouter.ai/keys
 
-### 4. Har project ke liye:
-```bash
-cd brightline-media
-npm install
-npm run dev        # local: http://localhost:3000
-npm run build      # production build
-```
+> **Important:** "tumhara-key-yahan" ki jagah apna asli key daalo.
 
 ---
 
-## 🌐 Brightline Media — Quick Reference
+## ☁️ PHASE 5: CLOUDFLARE PE DEPLOY (LIVE KARO)
 
-### Deploy to Cloudflare Pages:
-```bash
-cd brightline-media
+### Option A: GUI se (Simple — Drag & Drop)
+1. Browser kholo → https://dash.cloudflare.com/ → login karo
+2. **Pages** → `brightline-media` project kholo
+3. **Create deployment** dabao
+4. File Explorer kholo → `C:\Projects\brightline-media\out` folder
+5. **Poora `out/` folder** browser mein drag & drop karo
+6. Upload hone do — **Deployment successful** dikhega
+
+### Option B: CLI se (Terminal)
+```powershell
+cd C:\Projects\brightline-media
+$env:CLOUDFLARE_API_TOKEN = "cfat_..."
+npx wrangler pages deploy out --project-name=brightline-media --commit-dirty=true
+```
+
+> API token bana ne ke liye: Cloudflare dashboard → API Tokens → Create Token → Cloudflare Pages: Edit permission do
+
+### Promote to Production
+Preview deploy ho jayega. **Production promote** karne ke liye:
+1. Cloudflare → Pages → `brightline-media`
+2. Deployments list mein latest wala → **3 dots (⋮)** → **"Set as Production"**
+
+---
+
+## 🔄 PHASE 6: CHANGE KARO AUR DEPLOY KARO (Daily kaam)
+
+Jab bhi website mein change karna ho:
+
+### Step 1: Code edit karo
+VS Code mein `C:\Projects\brightline-media` folder kholo. Files edit karo.
+
+### Step 2: Test locally
+```powershell
+npm run dev
+```
+Browser mein http://localhost:3000 pe check karo.
+
+### Step 3: Build karo
+```powershell
 npm run build
 ```
-Phir `out/` folder ko Cloudflare Pages dashboard mein drag-drop karo:
-1. https://dash.cloudflare.com/ → Pages
-2. Project `brightline-media` → "Create deployment"
-3. `out/` folder drag-drop
 
-CLI se deploy (pehle API token banao with Pages:Edit permission):
+### Step 4: Deploy karo
+```powershell
+# Cloudflare pe drag-drop karo (out/ folder)
+```
+Ya CLI se:
 ```powershell
 $env:CLOUDFLARE_API_TOKEN = "cfat_..."
 npx wrangler pages deploy out --project-name=brightline-media --commit-dirty=true
 ```
 
-### Login:
-```bash
-npx wrangler login              # Login (interactive mode)
-# Ya API token use karo:
-$env:CLOUDFLARE_API_TOKEN = "cfat_..."
+### Step 5: Promote to Production
+Cloudflare dashboard → Pages → latest deployment → **Set as Production**
+
+---
+
+## 📝 PHASE 7: GIT PUSH KARO (GitHub pe save karo)
+
+Changes GitHub pe save karne ke liye:
+
+**VS Code mein:**
+1. Baayi taraf **Source Control** icon (3 dots) pe click karo
+2. **Message** box mein likho ki kya change kiya
+3. **✔ Commit** dabao
+4. **Sync Changes** → **Push** dabao
+
+**Terminal se:**
+```powershell
+cd C:\Projects\brightline-media
+git add -A
+git commit -m "Kya change kiya hai — brief description"
+git push
 ```
 
-### Credentials:
-- Cloudflare: Sheikh.asif.192006@gmail.com
-- GitHub Account: sheikhasif192006-cloud
-- Domain: brightlinemedia.com → Cloudflare Pages
-- Live URL: https://brightline-media.pages.dev/
+---
+
+## 🛠️ COMMON CHEEZEIN JO KARNI PADENGI
+
+### Video compress kaise karein (Cloudflare limit 25MB)
+
+Jab bhi naya video daal rahe ho jo 25MB se bada ho:
+
+```powershell
+$ffmpeg = "C:\Projects\brightline-media\node_modules\.bin\ffmpeg"
+# Agar winget se install kiya hai to yeh use karo:
+$ffmpeg = "C:\Users\saddam uddin mondal\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffmpeg.exe"
+
+& $ffmpeg -i "source-file.mp4" -vcodec libx264 -crf 28 -preset fast -acodec aac -b:a 128k "output-file.mp4" -y
+```
+
+### Missing video files kaise check karein
+```powershell
+Get-ChildItem C:\Projects\brightline-media\public\videos
+```
+
+### Port change kaise karein (agar 3000 busy hai)
+```powershell
+npm run dev -- -p 3001
+```
 
 ---
 
-## 🎨 Site Features
-- Orange theme (#FF6A01) — video editing agency
-- Section headers with stagger animations (2s gap between elements)
-- Hero with showreel video placeholder (/videos/showreel.mp4)
-- 6 services, 6 features, 4 portfolio projects
-- Mobile responsive, hamburger drawer, custom cursor
-- WhatsApp contact: +919285500971 (User)
-- Partner (Asif Bhai): +917415411469
+## 📋 PROJECT STRUCTURE
 
-### Pending (Videos dene baaki):
-1. /public/videos/showreel.mp4 — Hero showreel
-2. /public/videos/project-*.mp4 — Portfolio thumbnails
+```
+brightline-media/
+├── public/
+│   ├── videos/          ← Yahan video files daalo
+│   ├── images/          ← Yahan images daalo
+│   └── ...
+├── src/
+│   ├── components/      ← Chhote UI components (Hero, Footer, etc.)
+│   ├── sections/        ← Bade sections (Portfolio, Results, Process, etc.)
+│   ├── app/             ← Next.js pages
+│   └── ...
+├── out/                 ← Build ke baad yeh folder banta hai (deploy yahi se karo)
+├── AGENTS.md            ← Yeh file (sab kuch yahan likha hai)
+└── package.json
+```
 
 ---
 
+## 🔑 IMPORTANT LINKS
 
+| Kya | Link |
+|---|---|
+| **Live Site** | https://brightline-media.pages.dev |
+| **GitHub Repo** | https://github.com/sheikhasif192006-cloud/brightline-media |
+| **Cloudflare Dashboard** | https://dash.cloudflare.com/ |
+| **OpenRouter API Keys** | https://openrouter.ai/keys |
+| **Local Dev Server** | http://localhost:3000 |
+| **GitHub Desktop** | https://desktop.github.com/ |
+| **OpenCode Config** | https://opencode.ai/config.json |
+
+---
+
+## 💡 TIPS
+
+- **Koi bhi command error de toh mujhe bulao.** Main help karunga.
+- **VS Code** use karo editing ke liye (easy hai).
+- **out/ folder kabhi delete mat karo** — build se banta hai, deploy wahi se hota hai.
+- **Naya video daalne ke baad** hamesha compress check karo (`winget install Gyan.FFmpeg`).
+- **Build hamesha deploy se pehle karo** — error nahi aana chahiye.
+
+---
+
+**Kuch bhi problem ho to mujhe bula lena. Main hoon.** 🫡
