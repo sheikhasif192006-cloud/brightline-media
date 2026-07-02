@@ -27,8 +27,26 @@ winget install GitHub.cli
 winget install Microsoft.VisualStudioCode
 ```
 
-### 2. Clone all repos:
-```bash
+### 2. Clone all repos (Code Download karna):
+
+#### Option A: GitHub Desktop (Easy — GUI)
+1. **GitHub Desktop** download karo: https://desktop.github.com/
+2. Install karo aur GitHub se login karo (sheikhasif192006-cloud)
+3. **File → Clone Repository → URL tab**
+4. URL paste karo: `https://github.com/sheikhasif192006-cloud/brightline-media.git`
+5. **Choose local path** → `C:\Projects`
+6. **Clone** button daba do
+7. Baaki repos ke liye bhi same karo:
+   - `https://github.com/sheikhasif192006-cloud/axility-ai.git`
+   - `https://github.com/sheikhasif192006-cloud/aurelius-erp.git`
+   - `https://github.com/sheikhasif192006-cloud/hive-ai-pro.git`
+
+#### Option B: Command Line (Terminal)
+```powershell
+# Pehle Projects folder banao
+mkdir C:\Projects -Force
+
+# Phir clone karo
 cd C:\Projects
 git clone https://github.com/sheikhasif192006-cloud/brightline-media.git
 git clone https://github.com/sheikhasif192006-cloud/axility-ai.git
