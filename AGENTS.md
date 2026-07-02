@@ -249,6 +249,35 @@ brightline-media/
 
 ---
 
+## 📌 PENDING / FUTURE CHANGES (Agli baar karna)
+
+### Portfolio Videos
+- [ ] Short Form Reels: 4 videos (03.mp4, 03a.mp4, 03b.mp4, 03c.mp4) — sab working
+- [ ] Podcast: 3 videos (02.mp4, 02a.mp4, 02b.mp4) — sab working
+- [ ] Koi naya video replace karna ho to `public/videos/` mein daalo aur same naam do
+
+### Known Fixes Applied (Already Done)
+- [x] Hero "Watch Showreel" button — `/videos/showreel.mp4` pe link kiya
+- [x] Footer dead legal links — hata diye
+- [x] Portfolio audio — hover/click/next-prev sab jagah unmuted
+- [x] Portfolio video refs — Podcast 3, Reels 4 buttons ke liye restore kiye
+- [x] Cloudflare deploy limit — portfolio-03.mp4 aur portfolio-03c.mp4 compress kiye
+
+### Indore PC Setup Checklist
+- [ ] Node.js install (`winget install OpenJS.NodeJS.LTS`)
+- [ ] Git install (`winget install Git.Git`)
+- [ ] VS Code install (`winget install Microsoft.VisualStudioCode`)
+- [ ] FFmpeg install (`winget install Gyan.FFmpeg`)
+- [ ] Repo clone (`git clone https://github.com/sheikhasif192006-cloud/brightline-media.git`)
+- [ ] `npm install`
+- [ ] `npm run dev` → localhost:3000 pe check
+- [ ] OpenCode install (`winget install opencode`)
+- [ ] OpenRouter API key set
+- [ ] `npm run build` — error check
+- [ ] Cloudflare deploy test
+
+---
+
 ## 🔑 IMPORTANT LINKS
 
 | Kya | Link |
