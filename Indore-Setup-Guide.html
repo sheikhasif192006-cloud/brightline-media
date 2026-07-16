@@ -178,12 +178,26 @@ npx wrangler pages deploy out --project-name=brightline-media --commit-dirty=tru
 <!-- ============================== -->
 <h2>📝 PHASE 7: GIT PUSH (GitHub pe save)</h2>
 
+<h3>🔑 Pehle GitHub Token banao (agar nahi hai)</h3>
+<p><strong>Jab pehli baar git push karoge to token maangega.</strong> Yeh karo:</p>
+<ol style="margin-left:20px;">
+  <li>Browser kholo → <strong>https://github.com/settings/tokens</strong></li>
+  <li><strong>"Generate new token"</strong> dabao → <strong>Classic</strong> select karo</li>
+  <li>Token name: <code>brightline-media</code> daalo</li>
+  <li><strong>Scopes:</strong> <code>repo</code> checkbox karo → <strong>Generate</strong></li>
+  <li>Naya token dikhega (<code>ghp_...</code>) — <strong>turant copy karo</strong> (Ctrl+C)</li>
+  <li>Kahi safe jagah save karo (Notepad mein daal do)</li>
+</ol>
+
+<div class="note">⚠️ <strong>Token sirf ek baar dikhta hai!</strong> Copy karna mat bhoolna. Agar copy nahi kiya to <strong>"Regenerate"</strong> karke naya banana padega.</div>
+
 <h3>VS Code se:</h3>
 <ol style="margin-left:20px;">
   <li>Baayi taraf <strong>Source Control</strong> icon (≋) pe click karo</li>
   <li><strong>Message</strong> box mein likho ki kya change kiya (e.g., "Hero text update")</li>
   <li><strong>✔ Commit</strong> dabao</li>
   <li><strong>Sync Changes</strong> → <strong>Push</strong> dabao</li>
+  <li><strong>Username:</strong> <code>sheikhasif192006-cloud</code> → <strong>Password:</strong> token paste karo</li>
 </ol>
 
 <h3>Terminal se:</h3>

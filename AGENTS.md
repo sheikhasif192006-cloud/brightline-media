@@ -185,9 +185,28 @@ Cloudflare dashboard → Pages → latest deployment → **Set as Production**
 
 ## 📝 PHASE 7: GIT PUSH KARO (GitHub pe save karo)
 
-Changes GitHub pe save karne ke liye:
+### 🔑 GitHub Token kaise paayein (Pehli baar setup)
 
-**VS Code mein:**
+Jab pehli baar git push karoge to **username aur password maangega**. Password ki jagah **token** daalna hota hai:
+
+1. **Browser kholo** → https://github.com/settings/tokens
+2. **"opencode-brightline"** token pe click karo
+3. **"Regenerate"** button dabao → password daalo
+4. **Naya token** dikhega (`ghp_...`) — **copy karo** (Ctrl+C)
+5. Kahi safe jagah save karo (Notepad mein daal do)
+
+**Token kahan set karna hoga?**
+```powershell
+# Git push karte waqt maangega (bas ek baar)
+Username: sheikhasif192006-cloud
+Password: <yahan token paste karo>
+```
+
+Ya phir **GitHub Desktop** use karoge to browser se login hoga — token ki zaroorat nahi.
+
+
+
+### VS Code mein:
 1. Baayi taraf **Source Control** icon (3 dots) pe click karo
 2. **Message** box mein likho ki kya change kiya
 3. **✔ Commit** dabao
@@ -251,10 +270,11 @@ brightline-media/
 
 ## 📌 PENDING / FUTURE CHANGES (Agli baar karna)
 
-### ⚠️ URGENT — GitHub Token Expiry (10 July 2026)
-- [ ] **Token "opencode-brightline" expire ho raha hai 7 din mein!**
-- [ ] Regenerate karo: https://github.com/settings/tokens/4758006008/regenerate
-- [ ] Naya token copy karo — git push karte waqt kaam aayega
+### ⚠️ URGENT — GitHub Token Expiry (July 2026)
+- [ ] Token regenerate karo: https://github.com/settings/tokens/4758006008/regenerate
+- [ ] Ya naya token banao: https://github.com/settings/tokens
+- [ ] Token copy karo → safe jagah save karo
+- [ ] Indore PC pe git push karte waqt yahi token use karna
 
 ### Portfolio Videos
 - [ ] Short Form Reels: 4 videos (03.mp4, 03a.mp4, 03b.mp4, 03c.mp4) — sab working
