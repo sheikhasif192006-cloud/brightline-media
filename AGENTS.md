@@ -251,6 +251,11 @@ brightline-media/
 
 ## 📌 PENDING / FUTURE CHANGES (Agli baar karna)
 
+### ⚠️ URGENT — GitHub Token Expiry (10 July 2026)
+- [ ] **Token "opencode-brightline" expire ho raha hai 7 din mein!**
+- [ ] Regenerate karo: https://github.com/settings/tokens/4758006008/regenerate
+- [ ] Naya token copy karo — git push karte waqt kaam aayega
+
 ### Portfolio Videos
 - [ ] Short Form Reels: 4 videos (03.mp4, 03a.mp4, 03b.mp4, 03c.mp4) — sab working
 - [ ] Podcast: 3 videos (02.mp4, 02a.mp4, 02b.mp4) — sab working
